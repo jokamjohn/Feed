@@ -9,6 +9,9 @@ use ReflectionClass;
 
 trait RecordActivity
 {
+    /**
+     * Create an activity when a model is created.
+     */
     protected static function boot()
     {
         parent::boot();
