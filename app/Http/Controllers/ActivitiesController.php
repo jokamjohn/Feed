@@ -9,8 +9,8 @@ class ActivitiesController extends Controller
 {
     public function show(User $user)
     {
-        $activity = $user->activity()->with(['user', 'subject'])->get();
-
+        $activity = $user->activity()->with(['user', 'subject'])->latest()->get();
+//return $activity;
         return view('activity.show', compact('activity'));
     }
 }

@@ -36,7 +36,7 @@ trait RecordActivity
         return ['created', 'deleted', 'updated'];
     }
 
-    /**Create the activity.
+    /**Create the activity from any where in the application.
      *
      * @param $event
      */

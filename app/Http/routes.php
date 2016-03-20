@@ -13,8 +13,9 @@
 
 use App\Comment;
 use App\Post;
+use App\User;
 
-Route::get('/', function () {
+Route::get('/', function (User $user) {
 //    $user = new \App\User();
 //    $user->name = 'johnkagga';
 //    $user->password = bcrypt('123456');
@@ -37,7 +38,10 @@ Route::get('/', function () {
 //    $postD->delete();
 //    $commentd = Comment::find(1);
 //    $commentd->delete();
-    
+
+    $post = Post::find(1);
+
+    $user->recordActivity('favorited', $post);
     return view('welcome');
 });
 

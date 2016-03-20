@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use League\Flysystem\Exception;
 
 class User extends Authenticatable
 {
@@ -27,5 +28,13 @@ class User extends Authenticatable
     public function activity()
     {
         return $this->hasMany(Activity::class);
+    }
+
+    public function recordActivity($name, $model)
+    {
+        if (!method_exists($model, 'recordActivity')) {
+            return new Exception('method recordActivity is not found');
+        }
+        return $model->recordActivity($name);
     }
 }
