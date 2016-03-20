@@ -14,5 +14,6 @@ class Comment extends Model
      * @var array
      */
     protected static $recordEvents = ['created'];
+    
     protected $fillable = ['user_id', 'post_id', 'body'];
 }

@@ -17,9 +17,23 @@ class CreateActivitiesTable extends Migration
             $table->integer('subject_id')->index();
             $table->string('subject_type')->index();
             $table->string('name');
-            $table->integer('user_id')->index();
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
         });
+
+//        Schema::table('activities',function($table)
+//        {
+//            $table->foreign('user_id')
+//                ->references('id')
+//                ->on('users');
+//        });
     }
 
     /**

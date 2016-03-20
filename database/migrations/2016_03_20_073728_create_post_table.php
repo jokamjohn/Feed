@@ -16,8 +16,12 @@ class CreatePostTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('body');
-            $table->integer('user_id')->index();
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
         });
     }
 

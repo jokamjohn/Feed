@@ -15,6 +15,12 @@ use App\Comment;
 use App\Post;
 
 Route::get('/', function () {
+//    $user = new \App\User();
+//    $user->name = 'johnkagga';
+//    $user->password = bcrypt('123456');
+//    $user->email = "johnkagga@gmail.com";
+//    $user->save();
+//
 //    $post = new Post();
 //    $post->name = 'name';
 //    $post->body = 'body';
@@ -47,5 +53,5 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+    Route::get('user/{username}/activities', 'ActivitiesController@show');
 });

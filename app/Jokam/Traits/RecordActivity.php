@@ -11,21 +11,14 @@ trait RecordActivity
 {
     /**
      * Create an activity when a model is created.
+     * Follow the boot method convention.
      */
-    protected static function boot()
+    protected static function bootRecordActivity()
     {
-        parent::boot();
-
         foreach (static::getEventName() as $event) {
 
             static::$event(function ($model) use ($event) {
-                Activity::create([
-                    'subject_id' => $model->id,
-                    'subject_type' => get_class($model),
-                    'name' => $model->getActivityName($model, $event),
-                    'user_id' => $model->user_id
-                ]);
-
+                $model->recordActivity($event);
             });
         }
     }
@@ -41,6 +34,20 @@ trait RecordActivity
         }
 
         return ['created', 'deleted', 'updated'];
+    }
+
+    /**Create the activity.
+     *
+     * @param $event
+     */
+    public function recordActivity($event)
+    {
+        Activity::create([
+            'subject_id' => $this->id,
+            'subject_type' => get_class($this),
+            'name' => $this->getActivityName($this, $event),
+            'user_id' => $this->user_id
+        ]);
     }
 
     /**Create a name for the activity table name field.
