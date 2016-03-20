@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use App\User;
 
 class ActivitiesController extends Controller
 {
     public function show(User $user)
     {
-        return $user->activity()->with(['user', 'subject'])->get();
+        $activity = $user->activity()->with(['user', 'subject'])->get();
+
+        return view('activity.show', compact('activity'));
     }
 }
