@@ -16,15 +16,31 @@ trait RecordActivity
     {
         parent::boot();
 
-        static::created(function ($model) {
-            Activity::create([
-                'subject_id' => $model->id,
-                'subject_type' => get_class($model),
-                'name' => $model->getActivityName($model, 'created'),
-                'user_id' => $model->user_id
-            ]);
+        foreach (static::getEventName() as $event) {
 
-        });
+            static::$event(function ($model) use ($event) {
+                Activity::create([
+                    'subject_id' => $model->id,
+                    'subject_type' => get_class($model),
+                    'name' => $model->getActivityName($model, $event),
+                    'user_id' => $model->user_id
+                ]);
+
+            });
+        }
+    }
+
+    /**Return the events to be recorded.
+     *
+     * @return array
+     */
+    protected static function getEventName()
+    {
+        if (isset(static::$recordEvents)) {
+            return static::$recordEvents;
+        }
+
+        return ['created', 'deleted', 'updated'];
     }
 
     /**Create a name for the activity table name field.
