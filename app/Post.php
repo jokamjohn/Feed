@@ -3,27 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Jokam\Traits\RecordActivity;
 
 class Post extends Model
 {
+    use RecordActivity;
+    
     protected $fillable = [
         'name', 'body', 'user_id'
     ];
 
-//    protected static function boot()
-//    {
-//        parent::boot();
-//
-//        static::created(function ($post) {
-//            Activity::create([
-//                'subject_id' => $post->id,
-//                'subject_type' => get_class($post),
-//                'name' => 'created_post',
-//                'user_id' => $post->user_id
-//            ]);
-//
-//        });
-//        
-//    }
 
 }

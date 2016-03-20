@@ -29,14 +29,6 @@ class EventServiceProvider extends ServiceProvider
     public function boot(DispatcherContract $events)
     {
         parent::boot($events);
-
-        Post::created(function ($post) {
-            Activity::create([
-                'subject_id' => $post->id,
-                'subject_type' => get_class($post),
-                'name' => 'created_post',
-                'user_id' => $post->user_id
-            ]);
-        });
+        
     }
 }

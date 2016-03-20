@@ -15,7 +15,7 @@ Route::get('/', function () {
     $post = new \App\Post();
     $post->name = 'name';
     $post->body = 'body';
-    $post->user_id = 2;
+    $post->user_id = 10;
     $post->save();
     
     echo $post;
